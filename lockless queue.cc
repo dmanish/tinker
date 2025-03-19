@@ -132,6 +132,7 @@ int main() {
     while ((value = q.dequeue()) != nullptr) {
         std::cout << "Dequeued: " << *value << std::endl;
     }
+    std::cout << "Manish is great \n";
     
     return 0;
 }
