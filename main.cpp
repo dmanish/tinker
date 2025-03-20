@@ -1,36 +1,38 @@
-#include<unordered_map>
 #include<iostream>
-#include <queue>
+ using namespace std;
 
-using namespace std;
-
-vector<int> TopkFrequent(vector<int>& nums, int k) {
-    unordered_map<int, int> freq;
-    for (int num : nums) {
-        freq[num]++;
+ vector<int> threSum(vector<int>& nums) {
+        vector<int> result;
+        if(nums.size() < 3) return result;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < nums.size() - 2; i++) {
+            if(i > 0 && nums[i] == nums[i - 1]) continue;
+            int j = i + 1;
+            int k = nums.size() - 1;
+            while(j < k) {
+                if(nums[i] + nums[j] + nums[k] == 0) {
+                    result.push_back(nums[i]);
+                    result.push_back(nums[j]);
+                    result.push_back(nums[k]);
+                    while(j < k && nums[j] == nums[j + 1]) j++;
+                    while(j < k && nums[k] == nums[k - 1]) k--;
+                    j++;
+                    k--;
+                } else if(nums[i] + nums[j] + nums[k] < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return result;
     }
-
-    priority_queue<pair<int, int>> pq;
-    for (auto it = freq.begin(); it != freq.end(); it++) {
-        pq.push({it->second, it->first});
-    }
-
-    vector<int> res;
-    for (int i = 0; i < k; i++) {
-        res.push_back(pq.top().second);
-        pq.pop();
-    }
-
-    return res;
-}   
 
 int main() {
-    vector<int> nums = {1, 1, 1, 2, 2, 3,7,7,7,7,7,8,2,7,2};
-    int k = 2;
-    vector<int> res = TopkFrequent(nums, k);
-    for (int num : res) {
-        cout << num << " ";
+    vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    vector<int> result = threSum(nums);
+    for(int i = 0; i < result.size(); i++) {
+        cout << result[i] << " ";
     }
-    cout << endl;
     return 0;
 }
