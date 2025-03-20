@@ -7,7 +7,7 @@
         
         {
             "name": "(gdb) Launch",
-            "type": "lldb",
+            "type": "node",
             "request": "launch",
             "program": "${workspaceFolder}/a.out",
         }
